@@ -41,7 +41,7 @@ def v_report_income_month(req,year,month):
     return HttpResponse(body)
 
 report_urlpatterns = [
-    url(r'^/$',v_report_index),
+    url(r'^$',v_report_index),
     url(r'^income/([0-9]{4})/$',v_report_income_year),
     url(r'^income/([0-9]{4})/([0-9]{2})/$',v_report_income_month),
 ]
@@ -62,7 +62,7 @@ def v_mail_outbox(req):
     return HttpResponse(body)
 
 mail_urlpatterns = [
-    url(r'^/$',v_mail_index),
+    url(r'^$',v_mail_index),
     url(r'^inbox/$',v_mail_inbox),
     url(r'^outbox/$',v_mail_outbox),
 ]
@@ -72,9 +72,10 @@ def v_index(req):
     return HttpResponse('<a href="/report/">查看报表</a>')
 
 urlpatterns = [
-    url(r'^/$',v_index),
-    url(r'^report/$',include(report_urlpatterns)),
-    url(r'^email/$',include(mail_urlpatterns)),
+    url(r'^$',v_index),
+    url(r'^report/',include(report_urlpatterns)),
+    url(r'^email/',include(mail_urlpatterns)),
+
 ]
 
 settings.configure()
@@ -82,7 +83,7 @@ settings.DEBUG = True
 settings.ROOT_URLCONF = sys.modules[__name__]
 
 wsgi_app = get_wsgi_application()
-httpd = make_server('0.0.0.0',8080,wsgi_app)
+httpd = make_server('0.0.0.0',9000,wsgi_app)
 
 print('start serving at 0.0.0.0:8000')
 httpd.serve_forever()
