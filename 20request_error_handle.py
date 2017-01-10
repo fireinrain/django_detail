@@ -10,6 +10,7 @@ from django.http import HttpResponse
 from django.core.wsgi import get_wsgi_application
 from wsgiref.simple_server import make_server
 
+
 def ez_404(req):
     return HttpResponse('<h1>寻人启示</h1>')
 
